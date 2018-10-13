@@ -1,5 +1,7 @@
 package assignment.domain;
 
+import org.apache.tomcat.jni.Local;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -30,6 +32,24 @@ public class Reservation extends AbstractEntity {
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
+        validate();
+    }
+
+    private void validate() {
+        if (!isValidMinute(startTime)) throw new IllegalArgumentException();
+        if (!isValidMinute(endTime)) throw new IllegalArgumentException();
+        if (!isEndTimeLaterThanStartTime()) throw new IllegalArgumentException();
+    }
+
+    private boolean isValidMinute(LocalTime time) {
+        int minute = time.getMinute();
+        if (minute == 0 || minute == 30) return true;
+        return false;
+    }
+
+    private boolean isEndTimeLaterThanStartTime() {
+        if (endTime.isAfter(startTime)) return true;
+        return false;
     }
 
     public User getUser() {
