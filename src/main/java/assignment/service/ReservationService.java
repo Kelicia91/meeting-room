@@ -22,6 +22,10 @@ public class ReservationService {
     @Autowired
     private MeetingRoomService meetingRoomService;
 
+    public List<Reservation> get(LocalDate date) {
+        return reservationRepository.findAllByDate(date);
+    }
+
     public List<Reservation> add(ReservationDTO reservationDTO) {
         MeetingRoom meetingRoom = meetingRoomService.findById(reservationDTO.getMeetingRoomId());
         List<LocalDate> dates = Utility.GetDates(reservationDTO.getDate(), reservationDTO.getRepeatPerWeek());
