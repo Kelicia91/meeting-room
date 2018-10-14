@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 @Entity
 public class MeetingRoom extends AbstractEntity {
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     public MeetingRoom() {
