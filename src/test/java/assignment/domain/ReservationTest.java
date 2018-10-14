@@ -17,7 +17,7 @@ public class ReservationTest {
 
     @Before
     public void setUp() throws Exception {
-        username = "bob";
+        username = "apeach";
         meetingRoom = new MeetingRoom("A");
         date = LocalDate.now();
         startTime = LocalTime.of(10, 0);

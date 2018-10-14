@@ -38,7 +38,7 @@ public class ReservationServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        String username = "bob";
+        String username = "apeach";
         meetingRoom = new MeetingRoom(MEETING_ROOM_ID, "A");
         LocalDate date = LocalDate.now();
         LocalTime startTime = LocalTime.of(10, 0);
@@ -46,7 +46,7 @@ public class ReservationServiceTest {
         int repeatPerWeek = 1;
 
         dto = new ReservationDTO();
-        dto.setUserName(username);
+        dto.setUsername(username);
         dto.setMeetingRoomId(meetingRoom.getId());
         dto.setDate(date);
         dto.setStartTime(startTime);

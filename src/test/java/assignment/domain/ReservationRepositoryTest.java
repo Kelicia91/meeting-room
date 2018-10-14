@@ -1,6 +1,7 @@
 package assignment.domain;
 
 import assignment.support.Utility;
+import org.apache.tomcat.jni.Local;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,13 +34,22 @@ public class ReservationRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
-        String username = "bob";
+        String username = "apeach";
         meetingRoom = meetingRoomRepository.findById(1L).orElseThrow(EntityNotFoundException::new);
         date = LocalDate.now().minusYears(1);
         savedStartTime = LocalTime.of(10, 0);
         savedEndTime = savedStartTime.plusHours(2); // 테스트할 시간이 저장된 시간내에 포함되는 경우도 고려해서 충분하게 간격을 둔다
         reservationRepository.save(Reservation.of(username, meetingRoom, date, savedStartTime, savedEndTime));
         dates = Utility.GetDates(date, 0);
+    }
+
+    @Test
+    public void countOverlapped_겹침_반복주기날짜() {
+        LocalDate reqDate = date.minusWeeks(1);
+        List<LocalDate> reqDates = Utility.GetDates(reqDate, 1);
+        LocalTime reqStartTime = savedStartTime;
+        LocalTime reqEndTime = savedEndTime;
+        assertThat(reservationRepository.countOverlapped(meetingRoom.getId(), reqDates, reqStartTime, reqEndTime)).isEqualTo(1);
     }
 
     @Test
