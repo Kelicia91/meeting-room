@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
-    List<Reservation> findAllByDate(LocalDate date);
+    List<Reservation> findAllByDateOrderByMeetingRoomIdAscStartTimeAsc(LocalDate date);
 
     @Query(value = "SELECT COUNT(*) "
             + "FROM reservation AS r "

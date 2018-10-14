@@ -23,7 +23,7 @@ public class ReservationService {
     private MeetingRoomService meetingRoomService;
 
     public List<Reservation> get(LocalDate date) {
-        return reservationRepository.findAllByDate(date);
+        return reservationRepository.findAllByDateOrderByMeetingRoomIdAscStartTimeAsc(date);
     }
 
     public List<Reservation> add(ReservationDTO reservationDTO) {
@@ -35,7 +35,7 @@ public class ReservationService {
         if (isOverlapped(meetingRoom.getId(), dates, startTime, endTime))
             throw new IllegalArgumentException("overlapped reservation");
 
-        return save(reservationDTO.getUserName(), meetingRoom, dates, startTime, endTime);
+        return save(reservationDTO.getUsername(), meetingRoom, dates, startTime, endTime);
     }
 
     private List<Reservation> save(String username, MeetingRoom meetingRoom, List<LocalDate> dates, LocalTime startTime, LocalTime endTime) {
