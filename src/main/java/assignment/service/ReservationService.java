@@ -28,7 +28,7 @@ public class ReservationService {
         LocalTime startTime = reservationDTO.getStartTime();
         LocalTime endTime = reservationDTO.getEndTime();
 
-        if (isOverlapped(meetingRoom, dates, startTime, endTime))
+        if (isOverlapped(meetingRoom.getId(), dates, startTime, endTime))
             throw new IllegalArgumentException("overlapped reservation");
 
         return save(reservationDTO.getUserName(), meetingRoom, dates, startTime, endTime);
@@ -43,8 +43,8 @@ public class ReservationService {
         return reservations;
     }
 
-    private boolean isOverlapped(MeetingRoom meetingRoom, List<LocalDate> dates, LocalTime startTime, LocalTime endTime) {
-        Long count = reservationRepository.countOverlapped(meetingRoom, dates, startTime, endTime);
+    private boolean isOverlapped(long meetingRoomId, List<LocalDate> dates, LocalTime startTime, LocalTime endTime) {
+        Long count = reservationRepository.countOverlapped(meetingRoomId, dates, startTime, endTime);
         if (count <= 0)
             return false;
         return true;

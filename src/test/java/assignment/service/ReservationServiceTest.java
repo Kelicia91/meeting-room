@@ -57,6 +57,12 @@ public class ReservationServiceTest {
     @Test
     public void add_성공() {
         // given
+        when(meetingRoomService.findById(meetingRoom.getId())).thenReturn(meetingRoom);
+
+        List<LocalDate> dates = Utility.GetDates(dto.getDate(), dto.getRepeatPerWeek());
+        when(reservationRepository.countOverlapped(meetingRoom.getId(), dates, dto.getStartTime(), dto.getEndTime()))
+                .thenReturn(0L);
+
         // when
         List<Reservation> reservations = reservationService.add(dto);
 
@@ -79,10 +85,10 @@ public class ReservationServiceTest {
     @Test(expected = IllegalArgumentException.class)
     public void add_실패_overlapped() throws Exception {
         // given
-        when(meetingRoomService.findById(MEETING_ROOM_ID)).thenReturn(meetingRoom);
+        when(meetingRoomService.findById(meetingRoom.getId())).thenReturn(meetingRoom);
 
         List<LocalDate> dates = Utility.GetDates(dto.getDate(), dto.getRepeatPerWeek());
-        when(reservationRepository.countOverlapped(meetingRoom, dates, dto.getStartTime(), dto.getEndTime()))
+        when(reservationRepository.countOverlapped(meetingRoom.getId(), dates, dto.getStartTime(), dto.getEndTime()))
                 .thenReturn(1L);
 
         // when
