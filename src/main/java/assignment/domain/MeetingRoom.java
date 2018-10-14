@@ -9,6 +9,10 @@ public class MeetingRoom extends AbstractEntity {
     @Column(nullable = false)
     private String name;
 
+    public MeetingRoom() {
+        this("");
+    }
+
     public MeetingRoom(String name) {
         this(0L, name);
     }
