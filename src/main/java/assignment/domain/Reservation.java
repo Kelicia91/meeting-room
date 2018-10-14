@@ -23,6 +23,10 @@ public class Reservation extends AbstractEntity {
     @Column(nullable = false)
     private LocalTime endTime;
 
+    public Reservation() {
+        super(0L);
+    }
+
     public Reservation(String username, MeetingRoom meetingRoom, LocalDate date, LocalTime startTime, LocalTime endTime) {
         this(0L, username, meetingRoom, date, startTime, endTime);
     }
