@@ -1,10 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="kr">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>회의실 예약</title>
+    <script src="index.js" type="module" defer></script>
 </head>
 <body>
-$END$
+    <div class="reservation">
+        <form class="date-picker">
+            <label>예약 현황 날짜</label>
+            <input type="date" name="date">
+            <button type="submit" class="btn">조회</button>
+        </form>
+        <table>
+        </table>
+        <div class="list">
+        </div>
+    </div>
+    <div class="reservation">
+        <form class="add-form">
+            <div class="meeting-room">
+                <label>회의실</label>
+                <select class="select" required>
+                </select>
+            </div>
+            <div class="user">
+                <label>예약자명</label>
+                <input type="text" name="name" minlength="1" value="muzi" required>
+            </div>
+            <div class="time-picker">
+                <label>예약시간</label>
+                <input type="time" name="start-time" class="start-time" value="09:00" required>
+                ~
+                <input type="time" name="end-time" class="end-time" value="10:00" required>
+            </div>
+            <div class="repeat">
+                <label>반복횟수(Week)</label>
+                <input type="number" name="repeat-per-week" value="0" step="1" min="0" minlength="1" required>
+            </div>
+            <button type="submit" class="btn">예약하기</button>
+        </form>
+    </div>
 </body>
 </html>
