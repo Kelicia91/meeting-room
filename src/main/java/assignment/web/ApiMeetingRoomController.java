@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/meeting-room")
+@RequestMapping("/api/meeting-rooms")
 public class ApiMeetingRoomController {
 
     @Autowired
