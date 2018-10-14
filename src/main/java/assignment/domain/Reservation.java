@@ -1,7 +1,5 @@
 package assignment.domain;
 
-import org.apache.tomcat.jni.Local;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -9,9 +7,8 @@ import java.time.LocalTime;
 @Entity
 public class Reservation extends AbstractEntity {
 
-    @ManyToOne
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_reservation_user_id"))
-    private User user;
+    @Column(nullable = false)
+    private String username;
 
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_reservation_meeting_room_id"))
@@ -26,13 +23,22 @@ public class Reservation extends AbstractEntity {
     @Column(nullable = false)
     private LocalTime endTime;
 
-    public Reservation(User user, MeetingRoom meetingRoom, LocalDate date, LocalTime startTime, LocalTime endTime) {
-        this.user = user;
+    public Reservation(String username, MeetingRoom meetingRoom, LocalDate date, LocalTime startTime, LocalTime endTime) {
+        this(0L, username, meetingRoom, date, startTime, endTime);
+    }
+
+    public Reservation(long id, String username, MeetingRoom meetingRoom, LocalDate date, LocalTime startTime, LocalTime endTime) {
+        super(id);
+        this.username = username;
         this.meetingRoom = meetingRoom;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
         validate();
+    }
+
+    public static Reservation of(String username, MeetingRoom meetingRoom, LocalDate date, LocalTime startTime, LocalTime endTime) {
+        return new Reservation(username, meetingRoom, date, startTime, endTime);
     }
 
     private void validate() {
@@ -52,9 +58,7 @@ public class Reservation extends AbstractEntity {
         return false;
     }
 
-    public User getUser() {
-        return user;
-    }
+    public String getUsername() { return username; }
 
     public MeetingRoom getMeetingRoom() {
         return meetingRoom;

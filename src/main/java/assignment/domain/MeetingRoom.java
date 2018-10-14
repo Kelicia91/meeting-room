@@ -10,6 +10,11 @@ public class MeetingRoom extends AbstractEntity {
     private String name;
 
     public MeetingRoom(String name) {
+        this(0L, name);
+    }
+
+    public MeetingRoom(long id, String name) {
+        super(id);
         this.name = name;
     }
 
