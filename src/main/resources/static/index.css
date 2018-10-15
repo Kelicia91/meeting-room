@@ -1,0 +1,21 @@
+label {
+    display: inline-block;
+    min-width: 130px;
+}
+
+form {
+    padding: 20px;
+}
+
+form > div {
+    padding: 10px;
+}
+
+.reservation .list {
+    padding: 20px;
+}
+
+.reservation .add-form .btn {
+    margin-top: 10px;
+    margin-left: 10px;
+}

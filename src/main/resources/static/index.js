@@ -58,9 +58,9 @@ function loadReservation(success, fail) {
 }
 
 function onLoadReservation(data) {
-    const table = $('.reservation .list');
-    table.innerHTML = '';
-    table.insertAdjacentHTML('afterbegin', templateReservations(data));
+    const list = $('.reservation .list');
+    list.innerHTML = '';
+    list.insertAdjacentHTML('afterbegin', templateReservations(data));
 }
 
 function loadMeetingRooms(success, fail) {
@@ -82,10 +82,6 @@ function onLoadMeetingRooms(data) {
     select.innerHTML = '';
     select.insertAdjacentHTML('afterbegin', templateMeetingRooms(data));
     select.selectedIndex = 0;
-
-    const table = $('.reservation table');
-    table.innerHTML = '';
-    table.insertAdjacentHTML('afterbegin', templateTableHeaderRow(data));
 }
 
 function onLoadFailed(error) {
@@ -113,21 +109,14 @@ function templateMeetingRoom({id, name}) {
     return `<option value="${id}">${name}</option>`;
 }
 
-function templateTableHeaderRow(data) {
-    return `<tr>${data && data.map(templateTableHeader).join('')}</tr>`;
-}
-
-function templateTableHeader({id, name}) {
-    return `<th>${name}</th>`;
-}
-
 function templateReservations(data) {
     return `${data && data.map(templateReservation).join('')}`;
 }
 
-function templateReservation(data) {
-    const json = JSON.stringify(data);
-    return `<p>${json}</p>`;
+function templateReservation({id, username, meetingRoom, date, startTime, endTime}) {
+    const formattedStartTime = `${startTime}`.substring(0, 5);
+    const formattedEndTime = `${endTime}`.substring(0, 5);
+    return `<p>회의실 ${meetingRoom.name} - ${formattedStartTime} ~ ${formattedEndTime} (${username})</p>`;
 }
 
 
@@ -136,7 +125,7 @@ function today() {
     const today = new Date();
 
     const month = today.getUTCMonth() + 1;
-    const day = today.getUTCDate() + 1;
+    const day = today.getUTCDate();
     const year = today.getUTCFullYear();
 
     if (month < 10) {
