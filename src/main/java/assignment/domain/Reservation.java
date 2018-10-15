@@ -46,9 +46,9 @@ public class Reservation extends AbstractEntity {
     }
 
     private void validate() {
-        if (!isValidMinute(startTime)) throw new IllegalArgumentException();
-        if (!isValidMinute(endTime)) throw new IllegalArgumentException();
-        if (!isEndTimeLaterThanStartTime()) throw new IllegalArgumentException();
+        if (!isValidMinute(startTime)) throw new IllegalArgumentException("invalid time.minute");
+        if (!isValidMinute(endTime)) throw new IllegalArgumentException("invalid time.minute");
+        if (!isEndTimeLaterThanStartTime()) throw new IllegalArgumentException("EndTime is NOT later than StartTime");
     }
 
     private boolean isValidMinute(LocalTime time) {
