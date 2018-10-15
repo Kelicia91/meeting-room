@@ -5,7 +5,7 @@
 ## 프로젝트 빌드 및 실행방법
 #### Requirement
  - JRE 1.8+
- - Gradle 5+
+ - Gradle 4+
 #### Command
 ```
 git clone https://github.com/Kelicia91/meeting-room.git
